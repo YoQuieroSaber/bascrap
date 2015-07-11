@@ -86,18 +86,8 @@ var analyzer = function(lines){
         }
     }
 
-    fs.writeFile("salida/legisladoresBA.csv", resp.join('\n'), function(err) {
-        if(err) {
-            return console.log(err);
-        }
-
-        console.log("La salida fue guardad en salida/legisladoresBA.csv");
-    }); 
-
-
+    return resp;
 }
-
-
 
 
 fs.readFile('texto.txt', 'utf8', function (err,data) {
@@ -106,6 +96,14 @@ fs.readFile('texto.txt', 'utf8', function (err,data) {
   }
 
   var resp = analyzer(data.split('\n'));
+
+  fs.writeFile("salida/legisladoresBA.csv", resp.join('\n'), function(err) {
+        if(err) {
+            return console.log(err);
+        }
+
+        console.log("La salida fue guardad en salida/legisladoresBA.csv");
+    }); 
 });
 
 
