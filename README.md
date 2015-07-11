@@ -53,6 +53,19 @@ Ahí lo que hacemos es buscar todos los <option> y tomar el value, eso genera el
 Luego corremos esta línea que genera las URLs y y las baja:
 
 ```bash
-cat ids-distritos.txt | while read x; do wget "http://www.juntaelectoral.gba.gob.ar/consulta/primarias/listas-registradas/consulta-listas-x-nivel.php?accion=requerir&orden=1&niveles=3&secciones=${x:0:1}&distri=$x"; done;
+cat ids-distritos.txt | while read x; do wget "http://www.juntaelectoral.gba.gob.ar/consulta/primarias/listas-registradas/consulta-listas-x-nivel.php?accion=requerir&orden=1&niveles=3&secciones=${x:0:1}&distri=${x:1:3}"; done;
 ```
 
+Y repetimos:
+
+```bash
+ls genera* | while read x y ; do pdftotext -layout $x text-$x.txt;  done
+```
+
+Y finalmente los compilamos en un sólo archivo:
+
+```bash
+cat text-* > texto-muni.txt
+```
+
+Ahora sólo queda correr el script para convertirlo en CSV
