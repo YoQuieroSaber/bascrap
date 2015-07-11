@@ -74,11 +74,18 @@ Ahora sólo queda correr el script para convertirlo en CSV
 
 ---
 
-Para correr el script:
+Para correr los scripts (dependiendo del dato deseado):
 
 ```bash
 npm install
-node app.js
+cd app
+node formatearGobernadores.js
+node formatearMunicipales.js
+node formatearLegisladores.js
 ```
 
-Esto genera un archivo legisladoresBA.csv con la info ordenada.
+Esto genera archivos en la carpeta ./salida/:
+
+ - formatearGobernadores.js genera el archivo ./salida/gobernadoresBA.csv con la info ordenada.
+ - formatearLegisladores.js genera el archivo ./salida/legisladoresBA.csv con la info ordenada.
+ - formatearMunicipales.js genera el archivo ./salida/municipalesBA.csv con la info ordenada.
