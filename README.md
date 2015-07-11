@@ -69,3 +69,16 @@ cat text-* > texto-muni.txt
 ```
 
 Ahora sólo queda correr el script para convertirlo en CSV
+
+
+
+---
+
+Para correr el script:
+
+```bash
+npm install
+node app.js
+```
+
+Esto genera un archivo legisladoresBA.csv con la info ordenada.
