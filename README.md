@@ -1,4 +1,4 @@
-# gbascrap
+# bascrap
 Scrapper del sitio de la junta electoral de buenos aires
 
 El primer paso para que funcione este scrapper es bajarse todos los PDFs, por ahora vamos a bajar los de las 8 secciones, que son los que tienen las candidaturas para diputados provinciales.
