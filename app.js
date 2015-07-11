@@ -18,58 +18,83 @@ var analyzer = function(lines){
         partido:''
     }
 
+    var resp    = [["Partido","Linea Interna", "Seccion", "Cargo",
+         "Documento","Genero","Nombre"].join(',')];
+
     function inicio(actual, i){
         while(! lines[i++].match(Estados.inicio));
         while(! lines[i++].match(Estados.provincia));
         return i;
     }
-
+    //FIXME: DRY
     function partido(actual, i){
-        //console.log("Antes -> " + i);
         while(!lines[i++].trim());
-        //console.log("Despues -> " + i);
-        //console.log("Partido -> ", lines.length, i, lines[i].match(Estados.partido));
-        actual.partido = lines[i -1].match(Estados.partido)[1];
+        actual.partido = lines[i -1].match(Estados.partido)[1].trim();
         return i;
     }
 
     function lineaInterna(actual, i){
         while(!lines[i++].match(Estados.lineaInterna));
-        actual.lineaInterna = lines[i -1].match(Estados.lineaInterna)[1];
+        actual.lineaInterna = lines[i -1].match(Estados.lineaInterna)[1].trim();
         return i;
     }
 
     function seccion(actual, i){
         while(!lines[i++].match(Estados.seccion));
-        actual.seccion = lines[i -1].match(Estados.seccion)[1];
+        actual.seccion = lines[i -1].match(Estados.seccion)[1].trim();
         return i;
     }
 
-    function cargo(actual, i){
-        while(!lines[i++].match(Estados.cargo));
-        actual.cargo = lines[i -1].match(Estados.cargo)[1];
-        return i;
+    function imprimirFila(actual){
+        var linea = [actual.partido, actual.lineaInterna, actual.seccion, actual.cargo, 
+            actual.documento, actual.genero, actual.nombre]
+        resp.push(linea.join(','));
     }
 
     function candidatos(actual, i){
+        var salir;
+        while(!salir){
+            // Primero busco cargos
+            var isCargo = lines[i].match(Estados.cargo);
+            var isCandidato = lines[i].match(Estados.candidato);
+            var salir = lines[i].match(Estados.inicio);
+
+            if(isCargo){
+                actual.cargo = isCargo[1].trim();
+            } else if(isCandidato){
+                actual.documento = isCandidato[1];
+                actual.genero    = isCandidato[2];
+                actual.nombre    = isCandidato[3];
+                imprimirFila(actual);
+            }
+            i++;
+        }
         return i;
     }
 
-    var resp    = [];
     var i       = 0;
 
     while(i < lines.length){
-        i = inicio(actual, i);
-        i = partido(actual, i);
-        i = lineaInterna(actual, i);
-        i = seccion(actual, i);
-        i = cargo(actual, i);
-        i = candidatos(actual, i);
-        console.log(JSON.stringify(actual, null, '\t'));
-        /*i = seccion(i);
-        i = cargo(i);
-        i = candidato(i);*/
+        try{
+            i = inicio(actual, i);
+            i = partido(actual, i);
+            i = lineaInterna(actual, i);
+            i = seccion(actual, i);
+            i = candidatos(actual, i);
+        } catch(e) {
+            break; // Ver como evitar esto!
+        }
     }
+
+    fs.writeFile("legisladoresBA.csv", resp.join('\n'), function(err) {
+        if(err) {
+            return console.log(err);
+        }
+
+        console.log("La salida fue guardad en salida.csv!");
+    }); 
+
+
 }
 
 
