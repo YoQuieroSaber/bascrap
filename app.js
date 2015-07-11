@@ -51,6 +51,10 @@ var analyzer = function(lines){
         return i;
     }
 
+    function candidatos(actual, i){
+        return i;
+    }
+
     var resp    = [];
     var i       = 0;
 
@@ -60,6 +64,7 @@ var analyzer = function(lines){
         i = lineaInterna(actual, i);
         i = seccion(actual, i);
         i = cargo(actual, i);
+        i = candidatos(actual, i);
         console.log(JSON.stringify(actual, null, '\t'));
         /*i = seccion(i);
         i = cargo(i);
