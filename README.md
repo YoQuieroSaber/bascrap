@@ -41,3 +41,18 @@ cat text-* > texto.txt
 ```
 
 Luego corremos el archivo javascript para convertirlo en CSV
+
+
+---
+
+Ahora para los municipales, primero se obtiene el listado de distritos que estáne en el html de la página:
+http://www.juntaelectoral.gba.gob.ar/consulta/primarias/listas-registradas/consulta-listas-x-nivel.php?accion=buscar&orden=1&posicion=1
+
+Ahí lo que hacemos es buscar todos los <option> y tomar el value, eso genera el archivo ids-distritos.txt
+
+Luego corremos esta línea que genera las URLs y y las baja:
+
+```bash
+cat ids-distritos.txt | while read x; do wget "http://www.juntaelectoral.gba.gob.ar/consulta/primarias/listas-registradas/consulta-listas-x-nivel.php?accion=requerir&orden=1&niveles=3&secciones=${x:0:1}&distri=$x"; done;
+```
+
