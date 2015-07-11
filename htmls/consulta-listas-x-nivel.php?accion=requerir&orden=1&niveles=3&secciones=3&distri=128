@@ -1,0 +1,293 @@
+<HTML>
+
+<TITLE>CONSULTA DE PARTIDOS</TITLE>
+
+
+
+<style type="text/css">
+<!--
+
+body{font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;}
+
+
+#layerSecc {
+    position:absolute;
+    left:180px;
+    top:88px;
+    width:204px;
+    height:42px;
+    z-index:1;
+    background-color: #ffffff;
+    visibility: hidden;
+}
+
+#layerDistri{
+    position:absolute;
+    left:100px;
+    top:88px;
+    width:300px;
+    height:42px;
+    z-index:2;
+    background-color: #ffffff;
+    visibility: hidden;
+}
+
+
+#envio{
+    position:absolute;
+    left:220px;
+    top:180px;
+    width:204px;
+    height:200px;
+    z-index:3;
+    background-color: #ffffff;
+    visibility: show;
+}
+-->
+
+/*----------------------------------right side End-----------------------------------------------------*/
+
+#rounded-corner
+{
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	font-size: 10px;
+	margin: 20px 0 0 20px;
+
+	text-align: left;
+	border-collapse: collapse;
+}
+#rounded-corner thead th.rounded-company
+{
+	background: #b9c9fe url('images/left.png') left -1px no-repeat;
+}
+#rounded-corner thead th.rounded-q4
+{
+	background: #b9c9fe url('images/right.png') right -1px no-repeat;
+}
+#rounded-corner th
+{
+	padding: 7px;
+	font-weight: normal;
+	font-size: 12px;
+	color: #039;
+	background: #b9c9fe;
+}
+#rounded-corner td
+{
+	padding: 6px;
+	background: #e8edff;
+	border-top: 1px solid #fff;
+	color: #669;
+}
+#rounded-corner tfoot td.rounded-foot-left
+{
+	background: #e8edff url('../images/botleft.png') left bottom no-repeat;
+}
+#rounded-corner tfoot td.rounded-foot-right
+{
+	background: #e8edff url('../images/botright.png') right bottom no-repeat;
+}
+#rounded-corner tbody tr:hover td
+{
+	background: #d0dafd;
+}
+
+
+
+</style>
+
+
+<script type="text/JavaScript">
+<!--
+function MM_callJS(jsStr) { //v2.0
+
+    switch (jsStr){
+
+            case  "1": //gobernador
+                MM_showHideLayers('layerSecc','','hidden')
+                MM_showHideLayers('layerDistri','','hidden')
+
+            break;
+            case  "2": //seccional
+                MM_showHideLayers('layerSecc','','show')
+                MM_showHideLayers('layerDistri','','hidden')
+            break;
+            case  "3": //distrital
+                MM_showHideLayers('layerSecc','','hidden')
+                MM_showHideLayers('layerDistri','','show')
+            break;
+
+    };
+
+
+
+
+  return eval(jsStr);
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_showHideLayers() { //v6.0
+  var i,p,v,obj,args=MM_showHideLayers.arguments;
+  for (i=0; i<(args.length-2); i+=3) if ((obj=MM_findObj(args[i]))!=null) { v=args[i+2];
+    if (obj.style) { obj=obj.style; v=(v=='show')?'visible':(v=='hide')?'hidden':v; }
+    obj.visibility=v; }
+}
+//-->
+</script>
+
+<script language="JavaScript">
+
+function darenter(nextfield) {
+if(window.event && window.event.keyCode == 13 && nextfield != "")
+  {
+	 if ((document.pedidos.length) > nextfield)
+	 {
+ 	   var str;
+ 	   str='document.forms[0]['+nextfield+'].focus();';
+ 	   eval(str);
+   	   return true;
+	 }
+  }
+else
+  return true;
+ }
+
+
+
+function GoRequerir()
+   {
+    var vvsigue = true;
+    //var vvestado = document.pedidos.estado.value;
+	var vvniveles = document.pedidos.niveles.value;
+	var vvsecciones = document.pedidos.secciones.value;
+    var vvdistri = document.pedidos.distri.value;
+	var vvsecdis = vvdistri.substring(0,1);
+	var vvdistri = vvdistri.substring(1,4);
+/*if (vvsecciones != vvsecdis && vvniveles == '3')
+    {
+        alert('EL DISTRITO SELECCIONADO NO CORRESPONDE A LA SECCION');
+        return false;
+    }*/
+    	switch (vvniveles)
+		{
+		 case '1':
+			{
+			if (vvsecciones == '0' && vvdistri =='000')
+				{
+				 vvsigue = true;
+				}
+			else
+				{
+	  			 alert('PARA EL NIVEL SELECCIONADO, LA SECCION Y EL DISTRITO NO DEBEN SER ESPECIFICADOS');
+			 	 vvsigue = false;
+				}
+			break;
+			}
+		 case '2':
+			{
+			if (vvsecciones != '0' )
+				{
+
+				vvdistri = '000';
+				vvsigue = true;
+				}
+			else
+				{
+	  			 alert('PARA EL NIVEL SELECCIONADO, SOLO DEBE ESPECIFICAR LA SECCION');
+			 	 vvsigue = false;
+				}
+			break;
+			}
+		 case '3':
+			{
+			if (vvdistri != '000')
+				{
+				 vvsigue = true;
+                  vvsecciones = vvsecdis;
+				}
+			else
+				{
+	  			 alert('PARA EL NIVEL SELECCIONADO, DEBE ESPECIFICAR UN DISTRITO');
+			 	 vvsigue = false;
+				}
+			break;
+			}
+		}
+      if (vvsigue)
+	  	{
+		 document.location="consulta-listas-x-nivel.php?accion=requerir&orden=1&niveles="+vvniveles+"&secciones="+vvsecciones+"&distri="+vvdistri;
+		 //parent.botonera.document.location="menu_botones.php?req=0&bus=1&nue=0&gra=0&bor=0&ord=0";
+      	 return true;
+		}
+	else
+		{
+		 return false;
+		}
+   }
+
+
+
+function GoBuscar()
+    {
+    document.location="consulta-listas-x-nivel.php?accion=buscar&orden=1&posicion=1";
+	//parent.botonera.document.location="menu_botones.php?req=1&bus=0&nue=0&gra=0&bor=0&ord=0";
+    }
+
+
+
+function GoImprimir()
+	{
+   parent.central.print();
+   }
+
+</script>
+
+
+<FORM name="pedidos" action="" method="POST"><input name="accion" value="grabar" type="hidden"><input name="secciones" value="3"type="hidden"><input name="niveles" value="3"type="hidden"><input name="estado" value=""type="hidden"><input name="distri" value="128"type="hidden"><TABLE border="0" width="100%"><tr><th><h4>EPAOS 2015</h4><br />
+<H4>Listas Registradas por la Junta Electoral de la Provincia de Buenos Aires</h4><br> Distrito  PRESIDENTE PERON</th></tr></TABLE><TABLE  width="90%" cellspacing="4" id="rounded-corner" ><thead><tr><th ><B>Partidos Politicos:</B></th>
+                <th >Lineas</th>
+       </tr></thead><tbody><tr>
+              <td>ALIANZA COMPROMISO FEDERAL</td>
+              <td><a href=genera-pdf.php?d=128&s=3&n=8&p=5053 TARGET='_blank' >MIJD</a></td>
+              </tr><tr>
+              <td>ALIANZA, UNIDOS POR UNA NUEVA ALTERNATIVA (UNA)</td>
+              <td><a href=genera-pdf.php?d=128&s=3&n=15&p=5055 TARGET='_blank' >FRENTE RENOVADOR</a></td>
+              </tr><tr>
+              <td>ALIANZA, FRENTE POPULAR</td>
+              <td><a href=genera-pdf.php?d=128&s=3&n=86&p=5057 TARGET='_blank' >PROTAGONISMO Y PARTICIPACION</a></td>
+              </tr><tr>
+              <td>ALIANZA, FRENTE DE IZQUIERDA Y LOS TRABAJADORES</td>
+              <td><a href=genera-pdf.php?d=128&s=3&n=70&p=5058 TARGET='_blank' >UNIDAD 2U</a></td>
+              </tr><tr>
+              <td>ALIANZA, FRENTE DE IZQUIERDA Y LOS TRABAJADORES</td>
+              <td><a href=genera-pdf.php?d=128&s=3&n=72&p=5058 TARGET='_blank' >RENOVAR Y FORTALECER EL FRENTE 1 A</a></td>
+              </tr><tr>
+              <td>ALIANZA, FRENTE PARA LA VICTORIA</td>
+              <td><a href=genera-pdf.php?d=128&s=3&n=62&p=5059 TARGET='_blank' >LISTA CELESTE Y BLANCA K NESTOR KIRCHNER </a></td>
+              </tr><tr>
+              <td>ALIANZA, CAMBIEMOS BUENOS AIRES</td>
+              <td><a href=genera-pdf.php?d=128&s=3&n=76&p=5060 TARGET='_blank' >1 A AMARILLO</a></td>
+              </tr><tr>
+              <td>ALIANZA, PROGRESISTAS</td>
+              <td><a href=genera-pdf.php?d=128&s=3&n=75&p=5062 TARGET='_blank' >CREO</a></td>
+              </tr><tr>
+              <td>MOVIMIENTO SOCIALISTA DE LOS TRABAJADORES</td>
+              <td><a href=genera-pdf.php?d=128&s=3&n=56&p=778 TARGET='_blank' >UNIDAD</a></td>
+              </tr></tbody><tfoot>
+           <tr>
+           <td class="rounded-foot-left">
+           <a href="javascript:history.go(-1);" ><< Volver</a>
+           </td>
+
+           <td class="rounded-foot-right"></td>
+           </tr>
+           </tfoot>
+           </TABLE></form>
+</html>
