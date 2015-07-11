@@ -18,9 +18,9 @@ var analyzer = function(lines){
         partido:''
     }
 
-    var resp    = [["Partido","Linea Interna", "Seccion", "Cargo",
-         "Documento","Genero","Nombre"].join(',')];
-
+    var resp    = [[ '"' + "Partido","Linea Interna", "Seccion", "Cargo",
+         "Documento","Genero","Nombre"].join('","') + '"'];
+         
     function inicio(actual, i){
         while(! lines[i++].match(Estados.inicio));
         while(! lines[i++].match(Estados.provincia));
@@ -48,7 +48,7 @@ var analyzer = function(lines){
     function imprimirFila(actual){
         var linea = [actual.partido, actual.lineaInterna, actual.seccion, actual.cargo, 
             actual.documento, actual.genero, actual.nombre]
-        resp.push(linea.join(','));
+        resp.push('"'+ linea.join('","') + '"');
     }
 
     function candidatos(actual, i){
