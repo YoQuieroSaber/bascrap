@@ -86,12 +86,12 @@ var analyzer = function(lines){
         }
     }
 
-    fs.writeFile("legisladoresBA.csv", resp.join('\n'), function(err) {
+    fs.writeFile("salida/legisladoresBA.csv", resp.join('\n'), function(err) {
         if(err) {
             return console.log(err);
         }
 
-        console.log("La salida fue guardad en salida.csv!");
+        console.log("La salida fue guardad en salida/legisladoresBA.csv");
     }); 
 
 
