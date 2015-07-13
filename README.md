@@ -5,13 +5,14 @@ Descargar datos en CSV: https://github.com/YoQuieroSaber/bascrap/tree/master/sal
 
 Fuente: http://www.juntaelectoral.gba.gob.ar/consulta/primarias/listas-registradas/consulta-listas-x-nivel.php?accion=buscar&orden=1&posicion=1
 
-==Requerimientos==
+**Requerimientos**
+
 Para repetir manualmente este proceso es necesario un sistema linux con los siguientes paquetes instalados:
 * pdftotext
 * nodejs
 * npm
 
-Pasos:
+**Pasos**
 
 1) El primer paso para que funcione este scrapper es bajarse todos los PDFs.
 
@@ -91,7 +92,9 @@ Ahora sólo queda correr el script para convertirlo en CSV
 
 ---
 
-Para correr los scripts (dependiendo del dato deseado):
+**Para correr los scripts**
+
+Cada uno de estos scripts extrae una información diferente.
 
 ```bash
 npm install
