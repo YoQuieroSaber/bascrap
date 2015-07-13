@@ -1,8 +1,25 @@
 # bascrap
-Scrapper del sitio de la junta electoral de buenos aires
+Scrapper del sitio de la junta electoral de buenos aires. Contiene pre-candidatos a diputados provinciales, intendentes, concejales y gobernadores de la Provincia de Buenos Aires para las PASO 2015.
 
-El primer paso para que funcione este scrapper es bajarse todos los PDFs, por ahora vamos a bajar los de las 8 secciones, que son los que tienen las candidaturas para diputados provinciales.
+Descargar datos en CSV: https://github.com/YoQuieroSaber/bascrap/tree/master/salida
 
+Fuente: http://www.juntaelectoral.gba.gob.ar/consulta/primarias/listas-registradas/consulta-listas-x-nivel.php?accion=buscar&orden=1&posicion=1
+
+==Requerimientos==
+Para repetir manualmente este proceso es necesario un sistema linux con los siguientes paquetes instalados:
+* pdftotext
+* nodejs
+* npm
+
+Pasos:
+
+1) El primer paso para que funcione este scrapper es bajarse todos los PDFs.
+
+2) Correr los scripts (ver más abajo)
+
+----
+
+Primero vamos a bajar los de las 8 secciones, que son los que tienen las candidaturas para diputados provinciales.
 Bajamos primero los HTMLs de cada sección:
 ```bash
 wget "http://www.juntaelectoral.gba.gob.ar/consulta/primarias/listas-registradas/consulta-listas-x-nivel.php?accion=requerir&orden=1&niveles=2&distri=000&secciones=2"
@@ -40,7 +57,7 @@ Y finalmente los compilamos en un sólo archivo:
 cat text-* > texto.txt
 ```
 
-Luego corremos el archivo javascript para convertirlo en CSV
+Por ahora lo dejamos así, más abajo veremos cómo convertirlo en CSV corriendo los scripts.
 
 
 ---
@@ -56,7 +73,7 @@ Luego corremos esta línea que genera las URLs y y las baja:
 cat ids-distritos.txt | while read x; do wget "http://www.juntaelectoral.gba.gob.ar/consulta/primarias/listas-registradas/consulta-listas-x-nivel.php?accion=requerir&orden=1&niveles=3&secciones=${x:0:1}&distri=${x:1:3}"; done;
 ```
 
-Y repetimos:
+Y repetimos el comando que convierte a texto todos los PDFs:
 
 ```bash
 ls genera* | while read x y ; do pdftotext -layout $x text-$x.txt;  done
