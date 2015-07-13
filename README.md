@@ -3,6 +3,8 @@ Scrapper del sitio de la junta electoral de buenos aires. Contiene pre-candidato
 
 Descargar datos en CSV: https://github.com/YoQuieroSaber/bascrap/tree/master/salida
 
+Los datos están basados en información de dominio público. Si se reutilizan solicitamos que nos informen para evitar duplicar esfuerzos.
+
 Fuente: http://www.juntaelectoral.gba.gob.ar/consulta/primarias/listas-registradas/consulta-listas-x-nivel.php?accion=buscar&orden=1&posicion=1
 
 **Requerimientos**
